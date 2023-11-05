@@ -10,11 +10,11 @@ class UserServiceClass {
 
 
    async login(credentials: Credentials) {
-    return this.fetchService.request("auth/login", credentials, 'POST');
+    return this.fetchService.post("auth/login", credentials);
   }
 
   async register(credentials: Credentials) {
-    return this.fetchService.request("auth/register", credentials, 'POST');
+    return this.fetchService.post("auth/register", credentials);
   }
 }
 

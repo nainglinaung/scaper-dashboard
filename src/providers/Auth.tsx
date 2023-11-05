@@ -1,4 +1,5 @@
 import React,{useEffect,ReactNode} from 'react'
+
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router';
 
@@ -16,7 +17,11 @@ const Auth = ({ children, ...props }: Props) => {
         }
     }, []);
 
-    return <div {...props}>{children}</div>
+    return (
+            <div {...props}>{children}</div>
+
+   )
+
 }
 
 export default Auth

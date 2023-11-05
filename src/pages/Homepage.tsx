@@ -1,23 +1,35 @@
-import { Link } from 'react-router-dom';
 import './Global.css';
-
-import Auth from './Auth';
+import { useEffect,useState } from 'react';
+import { useCookies } from 'react-cookie';
+import AuthProvider from '../providers/Auth';
 import TableLayout  from '../layouts/TableLayout'
 import Navbar from '../layouts/navbar';
-function App() {
+import { TableData } from '../types/table';
+import SearchServiceClass from "../services/search.services";
+
+
+function Home() {
+
+  const [cookie] = useCookies(["accessToken"]);
+  const [data, setData] = useState<TableData[]>([]);
+   
+  
+    useEffect(() => {
+    
+    const searchService = new SearchServiceClass(`Bearer ${cookie.accessToken}`);
+    searchService.list().then((data) => {
+      setData(data);
+    })
+   
+  },[cookie])
+
 
   return (
-    <Auth>
-      {/* <h1 className="text-3xl font-bold">
-    Hello world!  you can log out in <Link to="/logout">here</Link>
-    </h1> */}
-     
+    <AuthProvider> 
       <Navbar />
-       <TableLayout />
-      </Auth>
+      <TableLayout table={data} />
+    </AuthProvider>
   );
-  
-   
 }
 
-export default App;
+export default Home;

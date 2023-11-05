@@ -1,17 +1,17 @@
 import { Credentials } from "../types/credentials";
 import  FetchService  from "./fetch.service";
 
-export class SearchService {
+export default class SearchService {
     private fetchService;
-    constructor(Authorization:object) {
+    constructor(Authorization:string) {
         this.fetchService = new FetchService({Authorization});
     }
 
-    async login(credentials: Credentials) {
-        return this.fetchService.request("auth/login", credentials, 'POST');
+    async list() {
+        return this.fetchService.get("search-result");
     }
 
     async register(credentials: Credentials) {
-        return this.fetchService.request("auth/register", credentials, 'POST');
+        return this.fetchService.get("auth/register");
     }
 }
