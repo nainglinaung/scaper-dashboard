@@ -1,15 +1,21 @@
-const headers = new Headers();
-headers.append("Content-Type", "application/json");
+export default class FetchServiceClass {
 
-export async function FetchService(url: string, payload: object, method: string) {
-  
-    const response = await fetch(`${process.env.REACT_APP_API_BASEURL}/${url}`, {
-        method,
-        headers,
-        body: JSON.stringify(payload),
-        redirect: 'follow'
-    });
-    console.log(response)
+    private headers; 
+    private baseURL;
+    
+    constructor(header: object) {
+        this.headers = new Headers();
+        for (const [key, value] of Object.entries(header)) {
+            this.headers.append(key,value)
+        }
+        this.baseURL = process.env.REACT_APP_API_BASEURL;
+    };
 
-    return response.json()
+    async request(url: string, payload: object, method: string): Promise<any> {
+
+        const response = await fetch(`${this.baseURL}/${url}`, { method, headers: this.headers, body: JSON.stringify(payload), redirect: 'follow' })
+        
+        return response.json()
+    }
 }
+
