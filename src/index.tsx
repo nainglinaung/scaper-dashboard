@@ -4,7 +4,8 @@ import './index.css';
 import Home from './pages/Homepage';
 import Login from './pages/Login'
 import reportWebVitals from './reportWebVitals';
-import Logout from './pages/Logout'
+import Logout from './pages/Logout';
+import Register from './pages/Register';
 import Single from './pages/Single';
 import {
   createBrowserRouter,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
   {
     path: '/logout',

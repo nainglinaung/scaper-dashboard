@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import { useCookies } from 'react-cookie';
 import { TableData } from '../types/searchresult';
 import SearchServiceClass from '../services/search.services';
+import { Card, CardHeader } from '@material-tailwind/react';
 
 
 function Single() {
@@ -44,19 +45,18 @@ function Single() {
 
 
     return (
-        <AuthProvider><div>
-            <h2>{data.keyword}</h2>
-            <div>
-                <ul>
-                    <li>adswords_count - {data.adswords_count}</li>
-                    <li>link_count - {data.link_count}</li>
-                    <li>total_search_result_for_keyword - {data.total_search_result_for_keyword}</li>
-                </ul>
-            </div>
-            <div>
-                <div dangerouslySetInnerHTML={{ __html: data.raw_html }} />
-            </div>
-        </div></AuthProvider>
+        <AuthProvider><Card className="h-full w-full">
+            <CardHeader floated={false} shadow={false} className="rounded-none">
+                <h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>{data.keyword}</h2>
+            </CardHeader>
+
+            <ul>
+                <li>adswords_count - {data.adswords_count}</li>
+                <li>link_count - {data.link_count}</li>
+                <li>total_search_result_for_keyword - {data.total_search_result_for_keyword}</li>
+            </ul>
+            <div dangerouslySetInnerHTML={{ __html: data.raw_html }} />
+        </Card></AuthProvider>
     )
 }
 

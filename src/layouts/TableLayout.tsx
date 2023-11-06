@@ -3,9 +3,7 @@ import {
   Card,
   CardHeader,
   Typography,
-  Button,
   CardBody,
-  CardFooter,
 } from "@material-tailwind/react";
 import TableRow from './TableRow';
 import { TableData } from "../types/searchresult";
@@ -21,9 +19,7 @@ export default function TableLayout({ table }: TableLayoutProps) {
 
   return (
     <Card className="h-full w-full">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
 
-      </CardHeader>
       <CardBody className="overflow-scroll px-0">
         <table className="w-full min-w-max table-auto text-left">
           <thead>

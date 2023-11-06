@@ -1,5 +1,5 @@
 "use client"
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { Credentials } from "../types/credentials";
 import { Link } from "react-router-dom";
 import { UserService } from "../services/user.service";
@@ -23,7 +23,7 @@ export default function LoginComponent() {
     e.preventDefault();
     const data = await UserService.login(credentials);
 
-    setCookie("accessToken",data.accessToken)
+    setCookie("accessToken", data.accessToken)
   }
 
 
@@ -58,12 +58,6 @@ export default function LoginComponent() {
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
-          <Link
-            to="/forget"
-            className="text-xs text-blue-600 hover:underline"
-          >
-            Forget Password?
-          </Link>
           <div className="mt-2">
             <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
               Login
@@ -73,7 +67,7 @@ export default function LoginComponent() {
 
         <p className="mt-4 text-sm text-center text-gray-700"> Do not have an account?{" "}
           <Link
-            to="/auth/signup"
+            to="/register"
             className="font-medium text-blue-600 hover:underline"
           >
             Sign up
