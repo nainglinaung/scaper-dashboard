@@ -6,19 +6,26 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import TableRow from './TableRow';
-import { TableData } from "../types/searchresult";
+import { QueryTable, TableData } from "../types/searchresult";
+
+import SearchInput from "./SearchInput";
 
 const TABLE_HEAD = ["id", "adswords_count", "keyword", "total_search_result_for_keyword"];
 
 
 interface TableLayoutProps {
   table: TableData[]
+  cursor: QueryTable
+  setCursor: any
 }
 
-export default function TableLayout({ table }: TableLayoutProps) {
+export default function TableLayout({ table, cursor, setCursor }: TableLayoutProps) {
 
   return (
     <Card className="h-full w-full">
+      <CardHeader>
+        <SearchInput cursor={cursor} setCursor={setCursor} />
+      </CardHeader>
 
       <CardBody className="overflow-scroll px-0">
         <table className="w-full min-w-max table-auto text-left">

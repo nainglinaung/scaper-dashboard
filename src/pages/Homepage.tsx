@@ -36,7 +36,7 @@ function Home() {
 
   return (
     <AuthProvider>
-      <TableLayout table={data} />
+      <TableLayout table={data} cursor={cursor} setCursor={setCursor} />
     </AuthProvider>
   );
 }
