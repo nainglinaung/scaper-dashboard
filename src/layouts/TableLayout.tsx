@@ -8,7 +8,7 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import TableRow from './TableRow';
-import { TableData } from "../types/table";
+import { TableData } from "../types/searchresult";
 
 const TABLE_HEAD = ["id", "adswords_count", "keyword", "total_search_result_for_keyword"];
 

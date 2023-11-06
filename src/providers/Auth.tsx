@@ -1,5 +1,5 @@
-import React,{useEffect,ReactNode} from 'react'
-
+import React, { useEffect, ReactNode } from 'react'
+import Navbar from '../layouts/navbar';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router';
 
@@ -18,9 +18,11 @@ const Auth = ({ children, ...props }: Props) => {
     }, []);
 
     return (
-            <div {...props}>{children}</div>
+        <div {...props}>
+            <Navbar />
+            {children}</div>
 
-   )
+    )
 
 }
 

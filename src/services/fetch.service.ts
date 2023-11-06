@@ -1,4 +1,4 @@
-import { QueryTable } from "../types/table";
+import { QueryTable } from "../types/searchresult";
 
 export default class FetchServiceClass {
 
@@ -21,16 +21,17 @@ export default class FetchServiceClass {
         return response.json()
     }
 
-    async get(url: string, params: QueryTable): Promise<any> {
+    async get(url: string, params: QueryTable | null): Promise<any> {
 
+        url = `${this.baseURL}/${url}`;
 
+        if (params) {
+            const query = Object.entries(params).map(([key, value]) => {
+                return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+            }).join('&');
 
-        const query = Object.entries(params).map(([key, value]) => {
-            return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-        }).join('&');
-
-
-        url = `${this.baseURL}/${url}?${query}`;
+            url = `${url}?${query}`;
+        }
 
         const response = await fetch(url, { method: 'GET', headers: this.headers });
         if (!response.ok) {

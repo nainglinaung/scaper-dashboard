@@ -3,8 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import AuthProvider from '../providers/Auth';
 import TableLayout from '../layouts/TableLayout'
-import Navbar from '../layouts/navbar';
-import { QueryTable, TableData } from '../types/table';
+import { QueryTable, TableData } from '../types/searchresult';
 import SearchServiceClass from "../services/search.services";
 import { useNavigate } from 'react-router';
 
@@ -37,7 +36,6 @@ function Home() {
 
   return (
     <AuthProvider>
-      <Navbar />
       <TableLayout table={data} />
     </AuthProvider>
   );

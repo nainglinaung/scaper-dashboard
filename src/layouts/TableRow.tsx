@@ -3,6 +3,7 @@ import {
   Chip,
   tab,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 
 interface ITable {
@@ -31,7 +32,7 @@ function TableRow({ table }: TableRowProps) {
         {table.adswords_count}
       </td>
       <td className={table.classes}>
-        {table.keyword}
+        <Link to={`page/${table.id}`}>{table.keyword}</Link>
       </td>
       <td className={table.classes}>
         {table.total_search_result_for_keyword}

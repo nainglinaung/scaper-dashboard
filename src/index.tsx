@@ -5,7 +5,7 @@ import Home from './pages/Homepage';
 import Login from './pages/Login'
 import reportWebVitals from './reportWebVitals';
 import Logout from './pages/Logout'
-
+import Single from './pages/Single';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -14,15 +14,19 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <Home />,
+  },
+  {
+    path: "/page/:id",
+    element: <Single />,
   },
   {
     path: "/login",
-    element: <Login/>,
+    element: <Login />,
   },
   {
     path: '/logout',
-    element: <Logout/>,
+    element: <Logout />,
   }
 ]);
 
@@ -32,7 +36,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-   <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

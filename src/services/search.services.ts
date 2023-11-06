@@ -1,4 +1,4 @@
-import { QueryTable } from "../types/table";
+import { QueryTable } from "../types/searchresult";
 import FetchService from "./fetch.service";
 
 export default class SearchService {
@@ -11,7 +11,7 @@ export default class SearchService {
         return this.fetchService.get("search-result", query);
     }
 
-    // async register(credentials: Credentials) {
-    //     return this.fetchService.get("auth/register");
-    // }
+    async getDetails(id: string) {
+        return this.fetchService.get(`search-result/${id}`, null);
+    }
 }
