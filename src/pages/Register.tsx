@@ -22,7 +22,7 @@ export default function RegisterComponent() {
         e.preventDefault();
         const data = await UserService.register(credentials);
         console.log(data);
-        setCookie("accessToken", data.accessToken)
+        setCookie("accessToken", data.accessToken);
     }
 
 

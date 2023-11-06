@@ -20,9 +20,10 @@ export default class FetchServiceClass {
 
         const response = await fetch(`${this.baseURL}/${url}`, { method: 'POST', headers: this.headers, body, redirect: 'follow' })
 
-        if (response.status === 200) {
-            return response.json()
+        if (payload instanceof FormData) {
+            return
         }
+        return response.json()
     }
 
     async get(url: string, params: QueryTable | null): Promise<any> {
