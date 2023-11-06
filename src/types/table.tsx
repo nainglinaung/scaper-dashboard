@@ -1,9 +1,15 @@
 
 export interface TableData {
-    id: string, 
-    adswords_count: string,
-    keyword: string, 
-    link_count: string,
-    total_search_result_for_keyword: string,
-    raw_html: string; 
-  }
+  id: string,
+  adswords_count: string,
+  keyword: string,
+  link_count: string,
+  total_search_result_for_keyword: string,
+  raw_html: string;
+}
+
+export interface QueryTable {
+  keyword?: string | null,
+  take: number,
+  skip: number,
+}

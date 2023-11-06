@@ -1,6 +1,9 @@
+import { QueryTable } from "../types/table";
+
 export default class FetchServiceClass {
 
     private headers;
+
     private baseURL;
 
     constructor(header: object) {
@@ -18,9 +21,18 @@ export default class FetchServiceClass {
         return response.json()
     }
 
-    async get(url: string): Promise<any> {
+    async get(url: string, params: QueryTable): Promise<any> {
 
-        const response = await fetch(`${this.baseURL}/${url}`, { method: 'GET', headers: this.headers });
+
+
+        const query = Object.entries(params).map(([key, value]) => {
+            return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        }).join('&');
+
+
+        url = `${this.baseURL}/${url}?${query}`;
+
+        const response = await fetch(url, { method: 'GET', headers: this.headers });
         if (!response.ok) {
             throw new Error("HTTP status " + response.status);
         }
