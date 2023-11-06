@@ -1,6 +1,6 @@
 # Project Initialization
 
-Before you can continue with this project, make sure to set up the required backend dependencies.
+Before you can continue with this project, make sure to set up the required [backend dependencies](https://github.com/nainglinaung/scraper-test).
 
 
 ## Running the app
