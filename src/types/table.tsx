@@ -10,6 +10,4 @@ export interface TableData {
 
 export interface QueryTable {
   keyword?: string | null,
-  take: number,
-  skip: number,
 }

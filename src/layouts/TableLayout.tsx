@@ -8,31 +8,16 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import TableRow from './TableRow';
-import { QueryTable, TableData } from "../types/table";
+import { TableData } from "../types/table";
 
 const TABLE_HEAD = ["id", "adswords_count", "keyword", "total_search_result_for_keyword"];
 
 
 interface TableLayoutProps {
   table: TableData[]
-  setCursor: any
-  cursor: QueryTable
 }
 
-export default function TableLayout({ table, setCursor, cursor }: TableLayoutProps) {
-
-
-  const handeNext = () => {
-    if (cursor.skip >= 0) {
-      setCursor({ ...cursor, skip: cursor.skip + 1 })
-    }
-  }
-
-  const handlePrev = () => {
-    if (cursor.skip > 0) {
-      setCursor({ ...cursor, skip: cursor.skip - 1 })
-    }
-  }
+export default function TableLayout({ table }: TableLayoutProps) {
 
   return (
     <Card className="h-full w-full">
@@ -71,15 +56,7 @@ export default function TableLayout({ table, setCursor, cursor }: TableLayoutPro
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Button variant="outlined" size="sm" onClick={handlePrev}>
-          Previous
-        </Button>
 
-        <Button variant="outlined" size="sm" onClick={handeNext}>
-          Next
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

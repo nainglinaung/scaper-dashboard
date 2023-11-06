@@ -14,7 +14,8 @@ function Home() {
   const [data, setData] = useState<TableData[]>([]);
   const navigate = useNavigate()
   const [cookie, , removeCookie] = useCookies(['accessToken']);
-  const [cursor, setCursor] = useState<QueryTable>({ take: 1, skip: 0 });
+  const [cursor, setCursor] = useState<QueryTable>({});
+
 
   const LoadData = useCallback(() => {
     const searchService = new SearchServiceClass(`Bearer ${cookie.accessToken}`);
@@ -37,7 +38,7 @@ function Home() {
   return (
     <AuthProvider>
       <Navbar />
-      <TableLayout table={data} setCursor={setCursor} cursor={cursor} />
+      <TableLayout table={data} />
     </AuthProvider>
   );
 }
