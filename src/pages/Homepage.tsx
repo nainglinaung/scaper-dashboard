@@ -14,10 +14,15 @@ function Home() {
   const navigate = useNavigate()
   const [cookie, , removeCookie] = useCookies(['accessToken']);
   const [cursor, setCursor] = useState<QueryTable>({});
-
+  const searchService = new SearchServiceClass(`Bearer ${cookie.accessToken}`);
+  const OnFileUpload = (data: FormData) => {
+    searchService.uploadCSV(data).then((response) => {
+      console.log(response);
+    })
+  }
 
   const LoadData = useCallback(() => {
-    const searchService = new SearchServiceClass(`Bearer ${cookie.accessToken}`);
+
     searchService.list(cursor).then((data) => {
       setData(data)
     }).catch((error) => {
@@ -36,7 +41,7 @@ function Home() {
 
   return (
     <AuthProvider>
-      <TableLayout table={data} cursor={cursor} setCursor={setCursor} />
+      <TableLayout table={data} cursor={cursor} setCursor={setCursor} OnFileUpload={OnFileUpload} />
     </AuthProvider>
   );
 }

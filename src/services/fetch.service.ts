@@ -14,11 +14,15 @@ export default class FetchServiceClass {
         this.baseURL = process.env.REACT_APP_API_BASEURL;
     };
 
-    async post(url: string, payload: object): Promise<any> {
+    async post(url: string, payload: object | FormData): Promise<any> {
 
-        const response = await fetch(`${this.baseURL}/${url}`, { method: 'POST', headers: this.headers, body: JSON.stringify(payload), redirect: 'follow' })
+        const body = (payload instanceof FormData) ? payload : JSON.stringify(payload)
 
-        return response.json()
+        const response = await fetch(`${this.baseURL}/${url}`, { method: 'POST', headers: this.headers, body, redirect: 'follow' })
+
+        if (response.status === 200) {
+            return response.json()
+        }
     }
 
     async get(url: string, params: QueryTable | null): Promise<any> {
@@ -37,6 +41,7 @@ export default class FetchServiceClass {
         if (!response.ok) {
             throw new Error("HTTP status " + response.status);
         }
+
         return response.json()
     }
 

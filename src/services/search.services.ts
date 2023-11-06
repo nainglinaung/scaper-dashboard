@@ -14,4 +14,8 @@ export default class SearchService {
     async getDetails(id: string) {
         return this.fetchService.get(`search-result/${id}`, null);
     }
+
+    async uploadCSV(data: FormData) {
+        return this.fetchService.post('search-result/upload-csv', data);
+    }
 }

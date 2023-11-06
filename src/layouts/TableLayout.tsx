@@ -9,6 +9,7 @@ import TableRow from './TableRow';
 import { QueryTable, TableData } from "../types/searchresult";
 
 import SearchInput from "./SearchInput";
+import FileInput from "./FileInput";
 
 const TABLE_HEAD = ["id", "adswords_count", "keyword", "total_search_result_for_keyword"];
 
@@ -16,15 +17,17 @@ const TABLE_HEAD = ["id", "adswords_count", "keyword", "total_search_result_for_
 interface TableLayoutProps {
   table: TableData[]
   cursor: QueryTable
-  setCursor: any
+  setCursor: React.Dispatch<React.SetStateAction<QueryTable>>
+  OnFileUpload: (data: FormData) => void;
 }
 
-export default function TableLayout({ table, cursor, setCursor }: TableLayoutProps) {
+export default function TableLayout({ table, cursor, setCursor, OnFileUpload }: TableLayoutProps) {
 
   return (
     <Card className="h-full w-full">
       <CardHeader>
         <SearchInput cursor={cursor} setCursor={setCursor} />
+        <FileInput OnFileUpload={OnFileUpload} />
       </CardHeader>
 
       <CardBody className="overflow-scroll px-0">

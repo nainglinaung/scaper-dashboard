@@ -2,9 +2,8 @@ import React, { useRef } from 'react'
 import { QueryTable } from '../types/searchresult'
 
 interface SearchInputProps {
-
     cursor: QueryTable
-    setCursor: any
+    setCursor: React.Dispatch<React.SetStateAction<QueryTable>>
 }
 
 function SearchInput({ cursor, setCursor }: SearchInputProps) {

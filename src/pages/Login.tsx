@@ -17,7 +17,7 @@ export default function LoginComponent() {
     if (cookie.accessToken) {
       navigate("/");
     }
-  }, [cookie]);
+  }, [cookie, setCookie]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
