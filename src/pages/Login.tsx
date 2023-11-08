@@ -4,12 +4,13 @@ import { Credentials } from "../types/credentials";
 import { Link } from "react-router-dom";
 import { UserService } from "../services/user.service";
 import { useCookies } from 'react-cookie';
-
+import { useAlert } from "../hooks/useAlert";
 import { useNavigate } from "react-router-dom";
-
+import AlertComponent from "../layouts/Alert";
 
 export default function LoginComponent() {
   const [credentials, setCredentials] = React.useState<Credentials>({ email: '', password: '' });
+  const {handleClose,alert,setAlert} = useAlert()
   const [cookie, setCookie] = useCookies(['accessToken']);
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,9 +22,13 @@ export default function LoginComponent() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = await UserService.login(credentials);
-
-    setCookie("accessToken", data.accessToken)
+    UserService.login(credentials).then(({ accessToken }) => {
+      setCookie("accessToken",accessToken)
+    }).catch((error) => {
+      console.error(error);
+      setAlert({showError:true, message:error.message})
+    })
+   
   }
 
 
@@ -64,7 +69,7 @@ export default function LoginComponent() {
             </button>
           </div>
         </form>
-
+        {alert.showError && <AlertComponent message={alert.message} handleClose={handleClose} />}
         <p className="mt-4 text-sm text-center text-gray-700"> Do not have an account?{" "}
           <Link
             to="/register"

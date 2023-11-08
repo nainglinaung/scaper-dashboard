@@ -19,7 +19,7 @@ export default class FetchServiceClass {
         const body = (payload instanceof FormData) ? payload : JSON.stringify(payload)
 
         const response = await fetch(`${this.baseURL}/${url}`, { method: 'POST', headers: this.headers, body, redirect: 'follow' })
-
+        
         if (payload instanceof FormData) {
             return
         }
