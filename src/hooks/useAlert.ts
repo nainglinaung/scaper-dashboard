@@ -1,9 +1,5 @@
 import React from 'react'
-
-interface AlertInterface {
-    showError: boolean
-    message:string 
-}
+import { AlertInterface } from '../types/alert';
 
 export function useAlert() {
     

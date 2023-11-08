@@ -10,7 +10,7 @@ import AlertComponent from "../layouts/Alert";
 
 export default function LoginComponent() {
   const [credentials, setCredentials] = React.useState<Credentials>({ email: '', password: '' });
-  const {handleClose,alert,setAlert} = useAlert()
+  const { handleClose, alert, setAlert } = useAlert();
   const [cookie, setCookie] = useCookies(['accessToken']);
   const navigate = useNavigate();
   useEffect(() => {

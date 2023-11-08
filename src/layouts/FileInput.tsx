@@ -1,12 +1,16 @@
 import React, { useRef } from 'react'
+import { AlertInterface } from '../types/alert';
+import AlertComponent from './Alert'
 
 
 interface FileInputProps {
-    OnFileUpload: (data: FormData) => void;
+    OnFileUpload: (data: FormData) => void
+    alert: AlertInterface
+    handleClose:() => void
 }
 
 
-function FileInput({ OnFileUpload }: FileInputProps) {
+function FileInput({ OnFileUpload,alert,handleClose }: FileInputProps) {
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -44,6 +48,7 @@ function FileInput({ OnFileUpload }: FileInputProps) {
                         Upload
                     </button>
                 </div>
+                {alert.showError && < AlertComponent message={ alert.message } handleClose={ handleClose } />}
             </form>
         </div>
     );
