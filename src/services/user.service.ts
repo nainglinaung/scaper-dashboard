@@ -9,8 +9,15 @@ class UserServiceClass {
   }
 
 
-   async login(credentials: Credentials) {
-    return this.fetchService.post("auth/login", credentials);
+  async login(credentials: Credentials) {
+    const data = await this.fetchService.post("auth/login", credentials);  
+
+    if (data.message) {
+      throw new Error(data.message);
+    }
+
+    return data;
+
   }
 
   async register(credentials: Credentials) {

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router';
 
 interface Props {
     children?: ReactNode
-    // any props that come into the component
 }
 
 const Auth = ({ children, ...props }: Props) => {

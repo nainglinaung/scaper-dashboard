@@ -6,18 +6,25 @@ import TableLayout from '../layouts/TableLayout'
 import { QueryTable, TableData } from '../types/searchresult';
 import SearchServiceClass from "../services/search.services";
 import { useNavigate } from 'react-router';
+import { useAlert } from '../hooks/useAlert';
+
 
 
 function Home() {
 
   const [data, setData] = useState<TableData[]>([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { handleClose, alert, setAlert } = useAlert();
   const [cookie, , removeCookie] = useCookies(['accessToken']);
   const [cursor, setCursor] = useState<QueryTable>({});
   const searchService = new SearchServiceClass(`Bearer ${cookie.accessToken}`);
+
+
   const OnFileUpload = (data: FormData) => {
     searchService.uploadCSV(data).then((response) => {
-      console.log(response);
+      if (response.message) {
+        setAlert({message:response.message, showError:true})
+      }
     })
   }
 
@@ -37,11 +44,11 @@ function Home() {
   useEffect(() => {
     LoadData()
   }, [cookie, setCursor, cursor, LoadData])
-
+  console.log(alert)
 
   return (
     <AuthProvider>
-      <TableLayout table={data} cursor={cursor} setCursor={setCursor} OnFileUpload={OnFileUpload} />
+      <TableLayout table={data} cursor={cursor} setCursor={setCursor} OnFileUpload={OnFileUpload} alert={alert} handleClose={handleClose} />
     </AuthProvider>
   );
 }

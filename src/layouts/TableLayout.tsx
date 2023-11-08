@@ -10,6 +10,7 @@ import { QueryTable, TableData } from "../types/searchresult";
 
 import SearchInput from "./SearchInput";
 import FileInput from "./FileInput";
+import { AlertInterface } from "../types/alert";
 
 const TABLE_HEAD = ["id", "adswords_count", "keyword", "total_search_result_for_keyword"];
 
@@ -19,15 +20,17 @@ interface TableLayoutProps {
   cursor: QueryTable
   setCursor: React.Dispatch<React.SetStateAction<QueryTable>>
   OnFileUpload: (data: FormData) => void;
+  alert: AlertInterface
+  handleClose: () => void;
 }
 
-export default function TableLayout({ table, cursor, setCursor, OnFileUpload }: TableLayoutProps) {
+export default function TableLayout({ table, cursor, setCursor, OnFileUpload,alert, handleClose }: TableLayoutProps) {
 
   return (
     <Card className="h-full w-full">
       <CardHeader>
         <SearchInput cursor={cursor} setCursor={setCursor} />
-        <FileInput OnFileUpload={OnFileUpload} />
+        <FileInput OnFileUpload={OnFileUpload} alert={alert} handleClose={handleClose}  />
       </CardHeader>
 
       <CardBody className="overflow-scroll px-0">
