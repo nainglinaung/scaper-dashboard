@@ -1,16 +1,14 @@
-import React,{useEffect} from 'react'
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router';
+import React,{useEffect,useContext} from 'react'
+import { AppContext } from "../context/AppContext";
+
 function Logout() {
 
-    const [,,removeCookie] = useCookies(['accessToken']);
-    const navigate = useNavigate()
+  const { logout } = useContext(AppContext);
     useEffect(() => {
-        removeCookie("accessToken",{path:'/'});
-        navigate('/login')
+       logout()
     },[])
   return (
-    <div>Logout</div>
+    <div></div>
   )
 }
 

@@ -1,55 +1,41 @@
 import './Global.css';
-import { useCallback, useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import AuthProvider from '../providers/Auth';
+import { useEffect, useState } from 'react';
 import TableLayout from '../layouts/TableLayout'
 import { QueryTable, TableData } from '../types/searchresult';
-import SearchServiceClass from "../services/search.services";
-import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
-
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 
 function Home() {
 
   const [data, setData] = useState<TableData[]>([]);
-  const navigate = useNavigate();
   const { handleClose, alert, setAlert } = useAlert();
-  const [cookie, , removeCookie] = useCookies(['accessToken']);
   const [cursor, setCursor] = useState<QueryTable>({});
-  const searchService = new SearchServiceClass(`Bearer ${cookie.accessToken}`);
-
+  
+  const {logout,uploadFile,loadData} = useContext(AppContext)
 
   const OnFileUpload = (data: FormData) => {
-    searchService.uploadCSV(data).then((response) => {
-      if (response.message) {
-        setAlert({message:response.message, showError:true})
-      }
+    uploadFile(data).then((response: { showError: boolean, message: string }) => {
+      if (response.showError) {
+        setAlert({message:response.message, showError:response.showError})
+        }
     })
   }
-
-  const LoadData = useCallback(() => {
-
-    searchService.list(cursor).then((data) => {
-      setData(data)
-    }).catch((error) => {
-      if (error.message === 'HTTP status 401') {
-        removeCookie("accessToken", { path: '/' });
-        navigate('/login')
-      }
-    })
-  }, [cookie.accessToken, cursor, navigate, removeCookie])
-
-
+ 
   useEffect(() => {
-    LoadData()
-  }, [cookie, setCursor, cursor, LoadData])
-  console.log(alert)
+    loadData(cursor).then((data: TableData[]) => {
+      setData(data)
+    }).catch((error: { message: string; }) => {
+      if (error.message === 'HTTP status 401') {
+        logout()
+      }
+    });
+  }, [cursor, loadData, logout])
+ 
 
   return (
-    <AuthProvider>
       <TableLayout table={data} cursor={cursor} setCursor={setCursor} OnFileUpload={OnFileUpload} alert={alert} handleClose={handleClose} />
-    </AuthProvider>
   );
 }
 
