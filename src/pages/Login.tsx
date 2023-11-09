@@ -1,34 +1,23 @@
 "use client"
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Credentials } from "../types/credentials";
 import { Link } from "react-router-dom";
-import { UserService } from "../services/user.service";
-import { useCookies } from 'react-cookie';
 import { useAlert } from "../hooks/useAlert";
-import { useNavigate } from "react-router-dom";
 import AlertComponent from "../layouts/Alert";
+import { AppContext } from "../context/AppContext";
 
 export default function LoginComponent() {
   const [credentials, setCredentials] = React.useState<Credentials>({ email: '', password: '' });
   const { handleClose, alert, setAlert } = useAlert();
-  const [cookie, setCookie] = useCookies(['accessToken']);
-  const navigate = useNavigate();
-  useEffect(() => {
-
-    if (cookie.accessToken) {
-      navigate("/");
-    }
-  }, [cookie, setCookie]);
-
+   
+  const { handleLogin } = useContext(AppContext);
+ 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    UserService.login(credentials).then(({ accessToken }) => {
-      setCookie("accessToken",accessToken)
-    }).catch((error) => {
-      console.error(error);
-      setAlert({showError:true, message:error.message})
+
+    handleLogin(credentials).catch((error: { message: any; }) => {
+        setAlert({showError:true, message:error.message})
     })
-   
   }
 
 
@@ -79,6 +68,6 @@ export default function LoginComponent() {
           </Link>
         </p>
       </div>
-    </div>
+      </div>
   );
 }

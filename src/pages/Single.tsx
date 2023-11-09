@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import AuthProvider from '../providers/Auth'
+import {AuthProvider} from '../providers/Auth'
 import { useNavigate, useParams } from 'react-router'
 import { useCookies } from 'react-cookie';
 import { TableData } from '../types/searchresult';

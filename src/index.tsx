@@ -7,31 +7,42 @@ import reportWebVitals from './reportWebVitals';
 import Logout from './pages/Logout';
 import Register from './pages/Register';
 import Single from './pages/Single';
+import { AuthProvider } from './providers/Auth';
 import {
   createBrowserRouter,
   RouterProvider,
+  Outlet,
 } from "react-router-dom";
+
+const AuthLayout = () => (
+  <AuthProvider>
+    <Outlet />
+  </AuthProvider>
+);
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/page/:id",
-    element: <Single />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: '/logout',
-    element: <Logout />,
+    element: <AuthLayout />,
+    children:[{
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/page/:id",
+      element: <Single />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+    {
+      path: '/logout',
+      element: <Logout />,
+    }]
   }
 ]);
 

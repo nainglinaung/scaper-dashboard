@@ -1,28 +1,17 @@
 "use client"
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Credentials } from "../types/credentials";
 import { Link } from "react-router-dom";
-import { UserService } from "../services/user.service";
-import { useCookies } from 'react-cookie';
-
-import { useNavigate } from "react-router-dom";
-
+import { AppContext } from "../context/AppContext";
 
 export default function RegisterComponent() {
     const [credentials, setCredentials] = React.useState<Credentials>({ email: '', password: '' });
-    const [cookie, setCookie] = useCookies(['accessToken']);
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (cookie.accessToken) {
-            navigate("/");
-        }
-    }, [cookie]);
+   
+    const { handleRegister } = useContext(AppContext);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const data = await UserService.register(credentials);
-        console.log(data);
-        setCookie("accessToken", data.accessToken);
+        handleRegister(credentials);
     }
 
 
