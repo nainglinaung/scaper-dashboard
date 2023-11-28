@@ -8,7 +8,7 @@ function Sidebar() {
     <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
       {/* Sidebar content here */}
       <li><Link href="/">List</Link></li>
-      <li><a>Sidebar Item 2</a></li>
+      <li><Link href="/keywords/add">Add Keywords</Link></li>
     </ul>
   </div>
   )
