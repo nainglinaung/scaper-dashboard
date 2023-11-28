@@ -5,6 +5,7 @@ import React from 'react'
 function Navbar() {
 
   const { status, data: session } = useSession();
+
   
   return (
     <div className="navbar bg-base-100">
