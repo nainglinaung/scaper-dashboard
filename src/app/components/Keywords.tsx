@@ -1,41 +1,52 @@
 import React from 'react'
 
-function Keywords() {
+
+interface keyword {
+  id: string
+  adswords_count:number
+  keyword:string
+  link_count:number
+  total_search_result_for_keyword:string
+  scraping_status:string
+ 
+  // user                            User     @relation(fields: [userId], references: [id])
+  // createdAt                       DateTime @default(now())
+  // updatedAt                       DateTime @updatedAt
+}
+
+interface Props {
+  data: keyword[] 
+}
+
+
+function Keywords({ data }: Props) {
   return (
     <><div className="overflow-x-auto">
     <table className="table">
       {/* head */}
       <thead>
         <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
+          <th>ID</th>
+          <th>Ads Word Count</th>
+          <th>Keyword</th>
+          <th>Link Count</th>
+          <th>Total Search Result for Keyword</th>  
+          <th>Status</th>
         </tr>
       </thead>
-      <tbody>
-        {/* row 1 */}
-        <tr>
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Blue</td>
-        </tr>
-        {/* row 2 */}
-        <tr>
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
-        </tr>
-        {/* row 3 */}
-        <tr>
-          <th>3</th>
-          <td>Brice Swyre</td>
-          <td>Tax Accountant</td>
-          <td>Red</td>
-        </tr>
-      </tbody>
+        <tbody>
+          {data.map((keyword) => 
+            <tr key={keyword.id}>
+              <th>{keyword.id}</th>
+              <td>{keyword.adswords_count}</td>
+              <td>{keyword.keyword}</td>
+              <td>{keyword.link_count}</td>
+              <td>{keyword.total_search_result_for_keyword}</td>
+              <td>{keyword.scraping_status}</td>
+            </tr>
+          
+          )}
+       </tbody>
     </table>
   </div></>
   )

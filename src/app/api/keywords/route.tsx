@@ -2,12 +2,18 @@ import { getToken } from 'next-auth/jwt'
 import { NextRequest, NextResponse } from 'next/server'
 import { keywordSchema } from '@/app/schema/keyword.schema';
 import prisma from '../../../../prisma/client';
+
+
+
+const getUserData = async (req: NextRequest) => {
+    const user_session = await getToken({ req });
+    return prisma.user.findUnique({ where: { email: user_session?.email! } });
+}
+
 export const GET = async (request: NextRequest) => {
-
-    const token = await getToken({ req: request });
-    console.log(token);
-
-    return NextResponse.json(token)
+    const user = await getUserData(request);
+    const keywords = await prisma.search_results.findMany({where:{userId:user?.id}})
+    return NextResponse.json(keywords)
 }
 
 export const POST = async (request: NextRequest) => {
@@ -19,11 +25,8 @@ export const POST = async (request: NextRequest) => {
         return NextResponse.json(validationResult.error.errors, { status: 400 });
     }
 
-    const user_session = await getToken({ req: request });
 
-    const user = await prisma.user.findUnique({ where: { email: user_session?.email! } });
-
-    // if keyword exist, update the status 
+    const user = await getUserData(request);
 
     const keyword = await prisma.search_results.findFirst({ where: { userId:user?.id, keyword: body.name! } });
 
