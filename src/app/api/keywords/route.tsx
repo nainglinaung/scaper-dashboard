@@ -20,7 +20,7 @@ export const POST = async (request: NextRequest) => {
     const body = await request.json();
 
     const validationResult = keywordSchema.safeParse(body);
-
+    console.log(validationResult) 
     if (!validationResult.success) {
         return NextResponse.json(validationResult.error.errors, { status: 400 });
     }

@@ -3,10 +3,24 @@ import { cookies } from "next/headers";
 export default async function Home() {
 
 
-  const response = await fetch("http://localhost:3000/api/keywords",{headers: { Cookie: cookies().toString() },});
+
+  const loadData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/keywords", { headers: { Cookie: cookies().toString() }, });
+     
+      if (response.status === 200) { 
+        return response.json();
+      }
+      return [];
   
-  const data = await response.json();
-  console.log(data);
+    } catch(error) {
+      console.log(error);
+      return [];
+    }
+  }
+
+  const data = await loadData();
+
   
   return (
     <>

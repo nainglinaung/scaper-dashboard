@@ -8,7 +8,8 @@ interface keyword {
   link_count:number
   total_search_result_for_keyword:string
   scraping_status:string
- 
+  createdAt: Date 
+  updatedAt:Date
   // user                            User     @relation(fields: [userId], references: [id])
   // createdAt                       DateTime @default(now())
   // updatedAt                       DateTime @updatedAt
@@ -32,6 +33,8 @@ function Keywords({ data }: Props) {
           <th>Link Count</th>
           <th>Total Search Result for Keyword</th>  
           <th>Status</th>
+          <th>Created At</th>
+          <th>Updated At</th>
         </tr>
       </thead>
         <tbody>
@@ -43,6 +46,9 @@ function Keywords({ data }: Props) {
               <td>{keyword.link_count}</td>
               <td>{keyword.total_search_result_for_keyword}</td>
               <td>{keyword.scraping_status}</td>
+              <td>{keyword.createdAt}</td>
+              <td>{keyword.updatedAt}</td>
+              
             </tr>
           
           )}
